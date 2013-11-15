@@ -16,3 +16,17 @@ jQuery(function() {
     }); //hover
 }); //jQuery
 
+//Button Rollover 
+
+jQuery(function() {
+    jQuery('.rollover').hover(function() {
+        var currentImg = jQuery(this).attr('src');
+        jQuery(this).attr('src', jQuery(this).attr('hover'));
+        jQuery(this).attr('hover', currentImg);
+    }, function() {
+        var currentImg = jQuery(this).attr('src');
+        jQuery(this).attr('src', jQuery(this).attr('hover'));
+        jQuery(this).attr('hover', currentImg);
+    });
+});
+
