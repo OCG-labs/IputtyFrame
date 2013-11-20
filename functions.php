@@ -7,6 +7,7 @@
 if(!is_admin()) {
 	require_once('core/bootstrap/php/bootstrap.php'); 
 	require_once('core/bootstrap/php/wp_bootstrap_navwalker.php');
+	require_once('core/font-awesome/font-awesome.php');
 }
 
 
