@@ -4,6 +4,13 @@
  * @subpackage Ocg Frame
  */
 
+if ( !class_exists( 'ReduxFramework' ) && file_exists( dirname( __FILE__ ) . '/core/ReduxFramework/ReduxCore/framework.php' ) ) {
+	require_once( dirname( __FILE__ ) . '/core/ReduxFramework/ReduxCore/framework.php' );
+}
+if ( !isset( $redux_demo ) && file_exists( dirname( __FILE__ ) . '/core/theme-options.php' ) ) {
+	require_once( dirname( __FILE__ ) . '/core/theme-options.php' );
+}
+
 if(!is_admin()) {
 	require_once('core/bootstrap/php/bootstrap.php'); 
 	require_once('core/bootstrap/php/wp_bootstrap_navwalker.php');
