@@ -1,4 +1,4 @@
-<form action="/" method="get"> 
+<form action="<?php bloginfo('url'); ?>" method="get"> 
 	<div class="input-group">
 		<input type="text" class="form-control" name="s" id="search" value="<?php the_search_query(); ?>" placeholder="Try Our Search">
 		<span class="input-group-btn">
