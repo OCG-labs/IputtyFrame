@@ -15,10 +15,13 @@ if(!is_admin()) {
 	require_once('core/bootstrap/php/bootstrap.php'); 
 	require_once('core/bootstrap/php/wp_bootstrap_navwalker.php');
 	require_once('core/font-awesome/font-awesome.php');
+	require_once('core/addons/ga.php');
 }
 
 
 require_once('core/addons/shortcodes.php');
+require_once('core/addons/mailchimp.php');
+
 
 
 define('TEMPPATH', get_bloginfo('stylesheet_directory'));
