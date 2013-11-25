@@ -13,5 +13,3 @@ function options_shortcodes($attrs, $content=null) {
 }
 
 add_shortcode('option-t', 'options_shortcodes'); 
-
-?>
