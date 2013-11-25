@@ -12,7 +12,7 @@ $tags = $ct->Tags;
 $screenshot = $ct->get_screenshot();
 $class = $screenshot ? 'has-screenshot' : '';
 
-$customize_title = sprintf( __( 'Customize &#8220;%s&#8221;','redux-framework-demo' ), $ct->display('Name') );
+$customize_title = sprintf( __( 'Customize &#8220;%s&#8221;','iputty-frame' ), $ct->display('Name') );
 
 ?>
 <div id="current-theme" class="<?php echo esc_attr( $class ); ?>">
@@ -31,14 +31,14 @@ $customize_title = sprintf( __( 'Customize &#8220;%s&#8221;','redux-framework-de
 
 	<div>
 		<ul class="theme-info">
-			<li><?php printf( __('By %s','redux-framework-demo'), $ct->display('Author') ); ?></li>
-			<li><?php printf( __('Version %s','redux-framework-demo'), $ct->display('Version') ); ?></li>
-			<li><?php echo '<strong>'.__('Tags', 'redux-framework-demo').':</strong> '; ?><?php printf( $ct->display('Tags') ); ?></li>
+			<li><?php printf( __('By %s','iputty-frame'), $ct->display('Author') ); ?></li>
+			<li><?php printf( __('Version %s','iputty-frame'), $ct->display('Version') ); ?></li>
+			<li><?php echo '<strong>'.__('Tags', 'iputty-frame').':</strong> '; ?><?php printf( $ct->display('Tags') ); ?></li>
 		</ul>
 		<p class="theme-description"><?php echo $ct->display('Description'); ?></p>
 		<?php if ( $ct->parent() ) {
 			printf( ' <p class="howto">' . __( 'This <a href="%1$s">child theme</a> requires its parent theme, %2$s.' ) . '</p>',
-				__( 'http://codex.wordpress.org/Child_Themes','redux-framework-demo' ),
+				__( 'http://codex.wordpress.org/Child_Themes','iputty-frame' ),
 				$ct->parent()->display( 'Name' ) );
 		} ?>
 		
@@ -91,46 +91,46 @@ $args['footer_credit'] = __('<p>Created with care by OCG Creative LLC</p>', 'ipu
 $sections[] = array(
 	'icon' => 'website',
 	'icon_class' => 'icon-large',
-	'title' => __('Styling Options', 'redux-framework-demo'),
+	'title' => __('Styling Options', 'iputty-frame'),
 	'fields' => array(
 		array(
 			'id'=>'stylesheet',
 			'type' => 'select',
-			'title' => __('Theme Stylesheet', 'redux-framework-demo'), 
-			'subtitle' => __('Select your themes alternative color scheme.', 'redux-framework-demo'),
+			'title' => __('Theme Stylesheet', 'iputty-frame'), 
+			'subtitle' => __('Select your themes alternative color scheme.', 'iputty-frame'),
 			'options' => array('default.css'=>'default.css', 'color1.css'=>'color1.css'),
 			'default' => 'default.css',
 			),
 		array(
 			'id'=>'color-background',
 			'type' => 'color',
-			'title' => __('Body Background Color', 'redux-framework-demo'), 
-			'subtitle' => __('Pick a background color for the theme (default: #fff).', 'redux-framework-demo'),
+			'title' => __('Body Background Color', 'iputty-frame'), 
+			'subtitle' => __('Pick a background color for the theme (default: #fff).', 'iputty-frame'),
 			'default' => '#FFFFFF',
 			'validate' => 'color',
 			),
 		array(
 			'id'=>'color-footer',
 			'type' => 'color',
-			'title' => __('Footer Background Color', 'redux-framework-demo'), 
-			'subtitle' => __('Pick a background color for the footer (default: #dd9933).', 'redux-framework-demo'),
+			'title' => __('Footer Background Color', 'iputty-frame'), 
+			'subtitle' => __('Pick a background color for the footer (default: #dd9933).', 'iputty-frame'),
 			'default' => '#dd9933',
 			'validate' => 'color',
 			),
 		array(
 			'id'=>'color-header',
 			'type' => 'color_gradient',
-			'title' => __('Header Gradient Color Option', 'redux-framework-demo'),
-			'subtitle' => __('Only color validation can be done on this field type', 'redux-framework-demo'),
-			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+			'title' => __('Header Gradient Color Option', 'iputty-frame'),
+			'subtitle' => __('Only color validation can be done on this field type', 'iputty-frame'),
+			'desc' => __('This is the description field, again good for additional info.', 'iputty-frame'),
 			'default' => array('from' => '#1e73be', 'to' => '#00897e')
 			),
 		array(
 			'id'=>'link-color',
 			'type' => 'link_color',
-			'title' => __('Links Color Option', 'redux-framework-demo'),
-			'subtitle' => __('Only color validation can be done on this field type', 'redux-framework-demo'),
-			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+			'title' => __('Links Color Option', 'iputty-frame'),
+			'subtitle' => __('Only color validation can be done on this field type', 'iputty-frame'),
+			'desc' => __('This is the description field, again good for additional info.', 'iputty-frame'),
 			'default' => array(
 				'show_regular' => true,
 				'show_hover' => true,
@@ -140,10 +140,10 @@ $sections[] = array(
 		array(
 			'id'=>'header-border',
 			'type' => 'border',
-			'title' => __('Header Border Option', 'redux-framework-demo'),
-			'subtitle' => __('Only color validation can be done on this field type', 'redux-framework-demo'),
+			'title' => __('Header Border Option', 'iputty-frame'),
+			'subtitle' => __('Only color validation can be done on this field type', 'iputty-frame'),
 			//'output' => array('.site-header'), // An array of CSS selectors to apply this font style to
-			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+			'desc' => __('This is the description field, again good for additional info.', 'iputty-frame'),
 			'default' => array('color' => '#1e73be', 'style' => 'solid', 'width'=>'3')
 			),	
 		array(
@@ -153,9 +153,9 @@ $sections[] = array(
 			'mode'=>'margin', // absolute, padding, margin, defaults to padding
 			//'units' => 'em', // You can specify a unit value. Possible: px, em, %
 			//'units_extended' => 'true', // Allow users to select any type of unit
-			'title' => __('Padding/Margin Option', 'redux-framework-demo'),
-			'subtitle' => __('Allow your users to choose the spacing or margin they want.', 'redux-framework-demo'),
-			'desc' => __('You can enable or diable any piece of this field. Top, Right, Bottom, Left, or Units.', 'redux-framework-demo'),
+			'title' => __('Padding/Margin Option', 'iputty-frame'),
+			'subtitle' => __('Allow your users to choose the spacing or margin they want.', 'iputty-frame'),
+			'desc' => __('You can enable or diable any piece of this field. Top, Right, Bottom, Left, or Units.', 'iputty-frame'),
 			'default' => array('top' => 5, 'bottom' => 6, 'left'=>2, 'right'=>4)
 			),	
 		array(
@@ -163,16 +163,16 @@ $sections[] = array(
 			'type' => 'dimensions',
 			//'units' => 'em', // You can specify a unit value. Possible: px, em, %
 			//'units_extended' => 'true', // Allow users to select any type of unit
-			'title' => __('Dimensions (Width/Height) Option', 'redux-framework-demo'),
-			'subtitle' => __('Allow your users to choose width, height, and/or unit.', 'redux-framework-demo'),
-			'desc' => __('You can enable or diable any piece of this field. Width, Height, or Units.', 'redux-framework-demo'),
+			'title' => __('Dimensions (Width/Height) Option', 'iputty-frame'),
+			'subtitle' => __('Allow your users to choose width, height, and/or unit.', 'iputty-frame'),
+			'desc' => __('You can enable or diable any piece of this field. Width, Height, or Units.', 'iputty-frame'),
 			'default' => array('width' => 200, 'height'=>'100', )
 			),												
 		array(
 			'id'=>'body-font2',
 			'type' => 'typography',
-			'title' => __('Body Font', 'redux-framework-demo'),
-			'subtitle' => __('Specify the body font properties.', 'redux-framework-demo'),
+			'title' => __('Body Font', 'iputty-frame'),
+			'subtitle' => __('Specify the body font properties.', 'iputty-frame'),
 			'google'=>true,
 			'default' => array(
 				'color'=>'#dd9933',
@@ -184,8 +184,8 @@ $sections[] = array(
 		array(
 			'id'=>'body-font3',
 			'type' => 'typography',
-			'title' => __('Body Font', 'redux-framework-demo'),
-			'subtitle' => __('Specify the body font properties.', 'redux-framework-demo'),
+			'title' => __('Body Font', 'iputty-frame'),
+			'subtitle' => __('Specify the body font properties.', 'iputty-frame'),
 			'google'=>true,
 			'default' => array(
 				'color'=>'#dd9933',
@@ -197,9 +197,9 @@ $sections[] = array(
 		array(
 			'id'=>'custom-css',
 			'type' => 'textarea',
-			'title' => __('Custom CSS', 'redux-framework-demo'), 
-			'subtitle' => __('Quickly add some CSS to your theme by adding it to this block.', 'redux-framework-demo'),
-			'desc' => __('This field is even CSS validated!', 'redux-framework-demo'),
+			'title' => __('Custom CSS', 'iputty-frame'), 
+			'subtitle' => __('Quickly add some CSS to your theme by adding it to this block.', 'iputty-frame'),
+			'desc' => __('This field is even CSS validated!', 'iputty-frame'),
 			'validate' => 'css',
 			),
 	)
@@ -232,8 +232,8 @@ $ReduxFramework = new ReduxFramework($sections, $args, $tabs);
 function add_another_section($sections){
     //$sections = array();
     $sections[] = array(
-        'title' => __('A Section added by hook', 'redux-framework-demo'),
-        'desc' => __('<p class="description">This is a section created by adding a filter to the sections array. Can be used by child themes to add/remove sections from the options.</p>', 'redux-framework-demo'),
+        'title' => __('A Section added by hook', 'iputty-frame'),
+        'desc' => __('<p class="description">This is a section created by adding a filter to the sections array. Can be used by child themes to add/remove sections from the options.</p>', 'iputty-frame'),
 		'icon' => 'paper-clip',
 		'icon_class' => 'icon-large',
         // Leave this as a blank section, no options just some intro text set above.
