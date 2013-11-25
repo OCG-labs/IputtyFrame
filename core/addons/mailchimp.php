@@ -1,3 +1,5 @@
+<?php 
+
 function frame_mc_slim_form() {
     ?><!-- Begin MailChimp Signup Form -->
        
