@@ -1,3 +1,4 @@
+<?php
 function frame_google_analytics_js() {
 ?>
     <script type="text/javascript">
