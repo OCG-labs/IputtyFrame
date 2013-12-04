@@ -23,3 +23,17 @@ function load_shiv_conditon() {
 	}
 }
 add_action('wp_print_scripts', 'load_shiv_conditon');
+
+function bootstrap_main_navigation() {
+	?>
+     <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+          <?php do_action('navbar_top'); ?>
+        </div>
+
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <?php do_action('navbar_bottom'); ?>
+        </div>
+      </nav> 
+  <?php
+}
