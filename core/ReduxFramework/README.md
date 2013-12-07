@@ -1,4 +1,4 @@
-# Redux Options Framework
+# Redux Options Framework [![Build Status](https://travis-ci.org/ReduxFramework/ReduxFramework.png?branch=master)](https://travis-ci.org/ReduxFramework/ReduxFramework) [![Stories in Ready](https://badge.waffle.io/ReduxFramework/ReduxFramework.png?label=ready)](https://waffle.io/ReduxFramework/ReduxFramework)
 
 WordPress options framework which uses the [WordPress Settings API](http://codex.wordpress.org/Settings_API "WordPress Settings API"), Custom Error/Validation Handling, Custom Field/Validation Types, and import/export functionality.
 
@@ -56,6 +56,57 @@ Send me an email at ghost1227@reduxframework.com so I can add you to our user sp
 
 ### Master ###
 
+= 3.1.0 =
+* Fix Issue 224 - Image Select width was breaking the panel.
+* Fix Issue 181 - Broken panel in firefox
+* Fix Issue 225 - 0px typography bug. Thanks @partnuz.
+* Fix Issue 228 - Resolved a duplicated enqueue on color_link field. Thanks @vertigo7x.
+* Fix Issue 231 - Field spacing bug fixes.
+* Fix Issue 232 & 233 - Dimensions: bug fix with units and multiple units. Thanks @kpodemski
+* Fix Issue 234 - Pass options as a ref so validating actions can modify/sanitize them. Thanks @ZeroBeeOne
+* Fix Issue 222 - Tab cookie function wasn't working.
+* Feature - Pass params to Select2. Thanks @andreilupu
+* Fix Issue 238 - Fix for conditional output. Thanks @partnuz.
+* Fix Issue 211 - Google Web font wasn't loading at first init of theme.
+* Fix Issue 210 - Elusive Icons update. Changed classes to force use of full elusive name.
+* Fix Issue 247 - Media thumbnails were not showing. Also fixed media to keep the largest file, but display the small version in the panel as a thumb. Thanks @kwayyinfotech.
+* Fix Issue 144 - JS error when no item found in slider.
+* Fix Issue 246 - Typography output errors.
+* Feature & Issue 259 - Multi-Text now support validation!
+* Fix Issue 248/261 - Links color issue. Also fixed color validation.
+* Feature & Issue 262 - Now registered sidebars can be used as a data type.
+* Fix Issue 194/276 - Custom taxonomy terms now passing properly. Thanks @kprovance.
+* Feature & Issue 273 - Argument save_defaults: Disable the auto-save of the default options to the database if not set.
+* Feature - Docs now being moved to the wiki for community participation.
+* Issue 283 - Date placeholder. Thanks @kprovance.
+* Issue 285 - HTTPS errors on admin. Known WordPress bug. Resolved.
+* Fix Issue 288 - Float values now possible for border, dimensions, and spacing.
+* Feature - Media field can now accept non-image files with a argument being set.
+* Fix Issue 252 - Post Type data wasn't working properly. Thanks @Abu-Taymiyyah.
+* Fix Issue 213 - Radio and Button Set wasn't folding.
+
+= 3.0.9 =
+* Feature - Added possibility to set default icon class for all sections and tabs.
+* Feature - Make is to the WP dir can be moved elsewhere and Redux still function.
+* Added Spanish Language. Thanks @vertigo7x.
+* Fix Issue 5 - Small RGBA validation fix.
+* Fix Issue 176 - Fold by Image Select. Thanks @andreilupu.
+* Fix Issue 194 - Custom taxonomy terms in select field.
+* Fix Issue 195 - Border defaults not working.
+* Fix Issue 197 - Hidden elements were showing up on a small screen. Thanks @ThinkUpThemes.
+* Fix issue 200 - Compiler not working with media field.
+* Fix Issue 201 - Spacing field not using default values.
+* Fix Issue 202 - Dimensions field not using units.
+* Fix Issue 208 - Checkbox + Required issue.
+* Fix Issue 211 - Google Font default not working on page load.
+* Fix Issue 214 - Validation notice not working for fields.
+* Fix Issue 181/224 - Firefox 24 image resize errors.
+* Fix Issue 223 - Slides were losing the url input field for the image link.
+* Fix - Various issues in the password field.
+* Fixed various spelling issues and typos in sample-config file.
+* Initialize vars before extract() - to shut down undefined vars wargnings.
+* Various other fixes.
+
 = 3.0.8 =
 * Version push to ensure all bugs fixes were deployed to users. Various.
 
@@ -80,8 +131,8 @@ Send me an email at ghost1227@reduxframework.com so I can add you to our user sp
 * Added consistent remove button on multi text, and used sanitize function for section id
 * Feature: Added roles as data for field data
 * Feature: Adding data layout options for multi checkbox and radio, we now have quarter, third, half, and full column layouts for these fields.
-* Feature: Eliminate REDUX_DIR and REDUX_URL constants and instead created static ReduxFramework::$_url and ReduxFramework::$_dir for cleaner code.
-Feature: Code at bottom of sample-config.php to hide plugin activation text about a demo plugin as well as code to demo how to hide the plugin demo_mode link.
+* Feature: Eliminate REDUX_DIR and REDUX_URL constants and instead created static ReduxFramework::$\_url and ReduxFramework::$\_dir for cleaner code.
+* Feature: Code at bottom of sample-config.php to hide plugin activation text about a demo plugin as well as code to demo how to hide the plugin demo_mode link.
 * Started work on class definitions of each field and class. Preparing for the panel builder we are planning to make.
 
 = 3.0.5 =
@@ -195,3 +246,6 @@ Redux is now hosted on WordPress.org! Update in order to get proper, stable upda
 * Made text domain a constant
 * Removed PHP closing tags to prevent issues with newlines
 * Added option to define custom start tab
+
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/dbb3b94f2607cb4a119a7863c230a98e "githalytics.com")](http://githalytics.com/ReduxFramework/ReduxFramework)
