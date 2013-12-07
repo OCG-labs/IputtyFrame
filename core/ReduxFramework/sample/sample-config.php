@@ -68,8 +68,9 @@ $item_info = ob_get_contents();
     
 ob_end_clean();
 
-
+$sampleHTML = '';
 if( file_exists( dirname(__FILE__).'/info-html.html' )) {
+	/** @global WP_Filesystem_Direct $wp_filesystem  */
 	global $wp_filesystem;
 	if (empty($wp_filesystem)) {
 		require_once(ABSPATH .'/wp-admin/includes/file.php');
@@ -112,7 +113,7 @@ $args['opt_name'] = 'redux_demo';
 // Set the class for the system info tab icon.
 // This is ignored unless $args['icon_type'] = 'iconfont'
 // Default: null
-$args['system_info_icon_class'] = 'icon-large';
+//$args['system_info_icon_class'] = 'icon-large';
 
 $theme = wp_get_theme();
 
@@ -159,6 +160,13 @@ $args['share_icons']['linked_in'] = array(
 // This is ignored unless $args['icon_type'] = 'iconfont'
 // Default: null
 $args['import_icon_class'] = 'icon-large';
+
+/**
+ * Set default icon class for all sections and tabs
+ * @since 3.0.9
+ */
+$args['default_icon_class'] = 'icon-large';
+
 
 // Set a custom menu icon.
 //$args['menu_icon'] = '';
@@ -231,7 +239,7 @@ if (!isset($args['global_variable']) || $args['global_variable'] !== false ) {
 	} else {
 		$v = str_replace("-", "_", $args['opt_name']);
 	}
-	$args['intro_text'] = __('<p>Did you know that Redux sets a global variable for you? To access any of your saved options from within your code you can use your global variable: <strong>$'.$v.'</strong></p>', 'redux-framework-demo');
+	$args['intro_text'] = sprintf( __('<p>Did you know that Redux sets a global variable for you? To access any of your saved options from within your code you can use your global variable: <strong>$%1$s</strong></p>', 'redux-framework-demo' ), $v );
 } else {
 	$args['intro_text'] = __('<p>This text is displayed above the options panel. It isn\'t required, but more info is always better! The intro_text field accepts all HTML.</p>', 'redux-framework-demo');
 }
@@ -272,18 +280,28 @@ $sections[] = array(
 	'header' => __('Welcome to the Simple Options Framework Demo', 'redux-framework-demo'),
 	'desc' => __('Redux Framework was created with the developer in mind. It allows for any theme developer to have an advanced theme panel with most of the features a developer would need. For more information check out the Github repo at: <a href="https://github.com/ReduxFramework/Redux-Framework">https://github.com/ReduxFramework/Redux-Framework</a>', 'redux-framework-demo'),
 	'icon_class' => 'icon-large',
-    'icon' => 'home',
+    'icon' => 'el-icon-home',
     // 'submenu' => false, // Setting submenu to false on a given section will hide it from the WordPress sidebar menu!
-	'fields' => array(
-		
+	'fields' => array(	
+		array(
+			'id'=>'webFonts',
+			'type' => 'media', 
+			'title' => __('Web Fonts', 'redux-framework-demo'),
+			'compiler' => 'true',
+			'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
+			'desc'=> __('Basic media uploader with disabled URL input field.', 'redux-framework-demo'),
+			'subtitle' => __('Upload any media using the WordPress native uploader', 'redux-framework-demo'),
+			),				
 		array(
 			'id'=>'media',
 			'type' => 'media', 
 			'url'=> true,
 			'title' => __('Media w/ URL', 'redux-framework-demo'),
 			'compiler' => 'true',
+			//'mode' => false, // Can be set to false to allow any media type, or can also be set to any mime type.
 			'desc'=> __('Basic media uploader with disabled URL input field.', 'redux-framework-demo'),
 			'subtitle' => __('Upload any media using the WordPress native uploader', 'redux-framework-demo'),
+			'default'=>array('url'=>'http://s.wordpress.org/style/images/codeispoetry.png'),
 			),
 
 		array(
@@ -386,10 +404,10 @@ $sections[] = array(
 			,
 			),			
         array(
-            "id" => "homepage_blocks",
+            "id" => "homepage_blocks_three",
             "type" => "sorter",
-            "title" => "Homepage Layout Manager",
-            "desc" => "Organize how you want the layout to appear on the homepage",
+            "title" => "Layout Manager Advanced",
+            "subtitle" => "You can add multiple drop areas or columns.",
             "compiler"=>'true',
             'required' => array('switch-fold','equals','0'),	
             'options' => array(
@@ -402,14 +420,112 @@ $sections[] = array(
                 ),
                 "disabled" => array(
                     "placebo" => "placebo", //REQUIRED!
-                )
+                ),
+                "backup" => array(
+                    "placebo" => "placebo", //REQUIRED!
+                ),                
             ),
         ),
+        array(
+            "id" => "homepage_blocks",
+            "type" => "sorter",
+            "title" => "Homepage Layout Manager",
+            "desc" => "Organize how you want the layout to appear on the homepage",
+            "compiler"=>'true',
+            'options' => array(
+                "enabled" => array(
+                    "placebo" => "placebo", //REQUIRED!
+                    "highlights" => "Highlights",
+                    "slider" => "Slider",
+                    "staticpage" => "Static Page",
+                    "services" => "Services"
+                ),
+                "disabled" => array(
+                    "placebo" => "placebo", //REQUIRED!
+                ),
+            ),
+        ),        
 		array(
 			'id'=>'slides',
 			'type' => 'slides',
 			'title' => __('Slides Options', 'redux-framework-demo'),
 			'subtitle'=> __('Unlimited slides with drag and drop sortings.', 'redux-framework-demo'),
+			'desc' => __('This field will store all slides values into a multidimensional array to use into a foreach loop.', 'redux-framework-demo')
+		),        
+		array(
+			'id'=>'slides',
+			'type' => 'slides',
+			'title' => __('Slides Options', 'redux-framework-demo'),
+			'subtitle'=> __('Unlimited slides with drag and drop sortings.', 'redux-framework-demo'),
+			'options'=>array(
+				'flash' => 'flash',
+				'bounce' => 'bounce',
+				'shake' => 'shake',
+				'tada' => 'tada',
+				'wobble' => 'wobble',
+				'pulse' => 'pulse',
+				'flip' => 'flip',
+				'flipInX' => 'flipInX',
+				'flipOutX' => 'flipOutX',
+				'flipInY' => 'flipInY',
+				'flipOutY' => 'flipOutY',
+				'fadeIn' => 'fadeIn',
+				'fadeInUp' => 'fadeInUp',
+				'fadeInDown' => 'fadeInDown',
+				'fadeInLeft' => 'fadeInLeft',
+				'fadeInRight' => 'fadeInRight',
+				'fadeInUpBig' => 'fadeInUpBig',
+				'fadeInDownBig' => 'fadeInDownBig',
+				'fadeInLeftBig' => 'fadeInLeftBig',
+				'fadeInRightBig' => 'fadeInRightBig',
+				'fadeOut' => 'fadeOut',
+				'fadeOutUp' => 'fadeOutUp',
+				'fadeOutDown' => 'fadeOutDown',
+				'fadeOutLeft' => 'fadeOutLeft',
+				'fadeOutRight' => 'fadeOutRight',
+				'fadeOutUpBig' => 'fadeOutUpBig',
+				'fadeOutDownBig' => 'fadeOutDownBig',
+				'fadeOutLeftBig' => 'fadeOutLeftBig',
+				'fadeOutRightBig' => 'fadeOutRightBig',
+				'slideInDown' => 'slideInDown',
+				'slideInLeft' => 'slideInLeft',
+				'slideInRight' => 'slideInRight',
+				'slideOutUp' => 'slideOutUp',
+				'slideOutLeft' => 'slideOutLeft',
+				'slideOutRight' => 'slideOutRight',
+				'bounceIn' => 'bounceIn',
+				'bounceInDown' => 'bounceInDown',
+				'bounceInUp' => 'bounceInUp',
+				'bounceInLeft' => 'bounceInLeft',
+				'bounceInRight' => 'bounceInRight',
+				'bounceOut' => 'bounceOut',
+				'bounceOutDown' => 'bounceOutDown',
+				'bounceOutUp' => 'bounceOutUp',
+				'bounceOutLeft' => 'bounceOutLeft',
+				'bounceOutRight' => 'bounceOutRight',
+				'rotateIn' => 'rotateIn',
+				'rotateInDownLeft' => 'rotateInDownLeft',
+				'rotateInDownRight' => 'rotateInDownRight',
+				'rotateInUpLeft' => 'rotateInUpLeft',
+				'rotateInUpRight' => 'rotateInUpRight',
+				'rotateOut' => 'rotateOut',
+				'rotateOutDownLeft' => 'rotateOutDownLeft',
+				'rotateOutDownRight' => 'rotateOutDownRight',
+				'rotateOutUpLeft' => 'rotateOutUpLeft',
+				'rotateOutUpRight' => 'rotateOutUpRight',
+				'lightSpeedIn' => 'lightSpeedIn',
+				'lightSpeedOut' => 'lightSpeedOut',
+				'hinge' => 'hinge',
+				'rollIn' => 'rollIn',
+				'rollOut' => 'rollOut'
+			),
+			'placeholder' => array(
+				'title'=>"This is the title",
+				'description'=>"Description here",
+				'url'=>"Link",
+				'select'=>"Select an Animation",
+			),
+			// 'select2' => array() // Select 2 options
 			'desc' => __('This field will store all slides values into a multidimensional array to use into a foreach loop.', 'redux-framework-demo')
 		),
 		array(
@@ -424,7 +540,7 @@ $sections[] = array(
 							'1' => array('alt' => 'Preset 1', 'img' => ReduxFramework::$_url.'../sample/presets/preset1.png', 'presets'=>array('switch-on'=>1,'switch-off'=>1, 'switch-custom'=>1)),
 							'2' => array('alt' => 'Preset 2', 'img' => ReduxFramework::$_url.'../sample/presets/preset2.png', 'presets'=>'{"slider1":"1", "slider2":"0", "switch-on":"0"}'),
 								),
-			),					
+			),							
 		array(
 			'id'=>'typography6',
 			'type' => 'typography', 
@@ -446,7 +562,8 @@ $sections[] = array(
 			'default'=> array(
 				'color'=>"#333", 
 				'font-style'=>'700', 
-				'font-family'=>'Courier, monospace', 
+				'font-family'=>'Abel', 
+				'google' => true,
 				'font-size'=>'33px', 
 				'line-height'=>'40'),
 			),	
@@ -462,7 +579,7 @@ $sections[] = array(
 
 
 $sections[] = array(
-	'icon' => 'cogs',
+	'icon' => 'el-icon-cogs',
 	'icon_class' => 'icon-large',
     'title' => __('General Settings', 'redux-framework-demo'),
 	'fields' => array(
@@ -496,7 +613,6 @@ $sections[] = array(
         array(
 			'id'=>'css-code',
 			'type' => 'ace_editor',
-			'required' => array('layout','equals','1'),	
 			'title' => __('CSS Code', 'redux-framework-demo'), 
 			'subtitle' => __('Paste your CSS code here.', 'redux-framework-demo'),
 			'mode' => 'css',
@@ -507,7 +623,6 @@ $sections[] = array(
         array(
 			'id'=>'js-code',
 			'type' => 'ace_editor',
-			'required' => array('layout','equals','1'),	
 			'title' => __('JS Code', 'redux-framework-demo'), 
 			'subtitle' => __('Paste your JS code here.', 'redux-framework-demo'),
 			'mode' => 'javascript',
@@ -523,7 +638,13 @@ $sections[] = array(
 			'subtitle' => __('You can use the following shortcodes in your footer text: [wp-url] [site-url] [theme-url] [login-url] [logout-url] [site-title] [site-tagline] [current-year]', 'redux-framework-demo'),
 			'default' => 'Powered by [wp-url]. Built on the [theme-url].',
 			),
-
+		array(
+			'id'          => 'password',
+			'type'        => 'password',
+			'username'    => true,
+			'title'       => 'SMTP Account',
+			//'placeholder' => array('username' => 'Enter your Username')
+		)
 	)
 );
 
@@ -531,8 +652,7 @@ $sections[] = array(
 
 
 $sections[] = array(
-	'icon' => 'website',
-	'icon_class' => 'icon-large',
+	'icon' => 'el-icon-website',
 	'title' => __('Styling Options', 'redux-framework-demo'),
 	'fields' => array(
 		array(
@@ -546,6 +666,7 @@ $sections[] = array(
 		array(
 			'id'=>'color-background',
 			'type' => 'color',
+			'output' => array('.site-title'),
 			'title' => __('Body Background Color', 'redux-framework-demo'), 
 			'subtitle' => __('Pick a background color for the theme (default: #fff).', 'redux-framework-demo'),
 			'default' => '#FFFFFF',
@@ -573,10 +694,13 @@ $sections[] = array(
 			'title' => __('Links Color Option', 'redux-framework-demo'),
 			'subtitle' => __('Only color validation can be done on this field type', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+			//'regular' => false, // Disable Regular Color
+			//'hover' => false, // Disable Hover Color
+			//'active' => false, // Disable Active Color
 			'default' => array(
-				'show_regular' => true,
-				'show_hover' => true,
-				'show_active' => true
+				//'regular' => '#aaa',
+				//'hover' => '#bbb',
+				//'active' => '#ccc',
 			)
 		),
 		array(
@@ -586,7 +710,7 @@ $sections[] = array(
 			'subtitle' => __('Only color validation can be done on this field type', 'redux-framework-demo'),
 			'output' => array('.site-header'), // An array of CSS selectors to apply this font style to
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
-			'default' => array('color' => '#1e73be', 'style' => 'solid', 'width'=>'3')
+			'default' => array('border-color' => '#1e73be', 'border-style' => 'solid', 'border-top'=>'3px', 'border-right'=>'3px', 'border-bottom'=>'3px', 'border-left'=>'3px')
 			),	
 		array(
 			'id'=>'spacing',
@@ -595,10 +719,11 @@ $sections[] = array(
 			'mode'=>'margin', // absolute, padding, margin, defaults to padding
 			//'units' => 'em', // You can specify a unit value. Possible: px, em, %
 			//'units_extended' => 'true', // Allow users to select any type of unit
+			//'display_units' => 'false', // Set to false to hide the units if the units are specified
 			'title' => __('Padding/Margin Option', 'redux-framework-demo'),
 			'subtitle' => __('Allow your users to choose the spacing or margin they want.', 'redux-framework-demo'),
-			'desc' => __('You can enable or diable any piece of this field. Top, Right, Bottom, Left, or Units.', 'redux-framework-demo'),
-			'default' => array('top' => 5, 'bottom' => 6, 'left'=>2, 'right'=>4)
+			'desc' => __('You can enable or disable any piece of this field. Top, Right, Bottom, Left, or Units.', 'redux-framework-demo'),
+			'default' => array('margin-top' => '1px', 'margin-right'=>"2px", 'margin-bottom' => '3px', 'margin-left'=>'4px' )
 			),	
 		array(
 			'id'=>'dimensions',
@@ -607,7 +732,7 @@ $sections[] = array(
 			//'units_extended' => 'true', // Allow users to select any type of unit
 			'title' => __('Dimensions (Width/Height) Option', 'redux-framework-demo'),
 			'subtitle' => __('Allow your users to choose width, height, and/or unit.', 'redux-framework-demo'),
-			'desc' => __('You can enable or diable any piece of this field. Width, Height, or Units.', 'redux-framework-demo'),
+			'desc' => __('You can enable or disable any piece of this field. Width, Height, or Units.', 'redux-framework-demo'),
 			'default' => array('width' => 200, 'height'=>'100', )
 			),												
 		array(
@@ -631,12 +756,19 @@ $sections[] = array(
 			'desc' => __('This field is even CSS validated!', 'redux-framework-demo'),
 			'validate' => 'css',
 			),
+		array(
+			'id'=>'custom-html',
+			'type' => 'textarea',
+			'title' => __('Custom HTML', 'redux-framework-demo'), 
+			'subtitle' => __('Just like a text box widget.', 'redux-framework-demo'),
+			'desc' => __('This field is even HTML validated!', 'redux-framework-demo'),
+			'validate' => 'html',
+			),		
 	)
 );
 	
 $sections[] = array(
-	'icon' => 'bullhorn',
-	'icon_class' => 'icon-large',
+	'icon' => 'el-icon-bullhorn',
 	'title' => __('Field Validation', 'redux-framework-demo'),
 	'desc' => __('<p class="description">This is the Description. Again HTML is allowed2</p>', 'redux-framework-demo'),
 	'fields' => array(
@@ -644,17 +776,28 @@ $sections[] = array(
 			'id'=>'2',
 			'type' => 'text',
 			'title' => __('Text Option - Email Validated', 'redux-framework-demo'),
-			'subtitle' => __('This is a little space under the Field Title in the Options table, additonal info is good in here.', 'redux-framework-demo'),
+			'subtitle' => __('This is a little space under the Field Title in the Options table, additional info is good in here.', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
 			'validate' => 'email',
 			'msg' => 'custom error message',
 			'default' => 'test@test.com'
-			),				
+			),	
+		array(
+			'id'=>'2test',
+			'type' => 'text',
+			'title' => __('Text Option with Data Attributes', 'redux-framework-demo'),
+			'subtitle' => __('You can also pass an options array if you want. Set the default to whatever you like.', 'redux-framework-demo'),
+			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+			'data' => 'post_type',
+			//'options' => array(1=>'One', 2=>'Two'),
+			//'default' => array(1=>'Onee', 2=>'Twoo'),
+			),						
 		array(
 			'id'=>'multi_text',
 			'type' => 'multi_text',
-			'title' => __('Multi Text Option', 'redux-framework-demo'),
-			'subtitle' => __('This is a little space under the Field Title in the Options table, additonal info is good in here.', 'redux-framework-demo'),
+			'title' => __('Multi Text Option - Color Validated', 'redux-framework-demo'),
+			'validate' => 'color',
+			'subtitle' => __('If you enter an invalid color it will be removed. Try using the text "blue" as a color.  ;)', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo')
 			),
 		array(
@@ -680,7 +823,7 @@ $sections[] = array(
 			'id'=>'comma_numeric',
 			'type' => 'text',
 			'title' => __('Text Option - Comma Numeric Validated', 'redux-framework-demo'),
-			'subtitle' => __('This must be a comma seperated string of numerical values.', 'redux-framework-demo'),
+			'subtitle' => __('This must be a comma separated string of numerical values.', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
 			'validate' => 'comma_numeric',
 			'default' => '0',
@@ -700,10 +843,10 @@ $sections[] = array(
 			'type' => 'text',
 			'title' => __('Text Option - Str Replace Validated', 'redux-framework-demo'),
 			'subtitle' => __('You decide.', 'redux-framework-demo'),
-			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+			'desc' => __('This field\'s default value was changed by a filter hook!', 'redux-framework-demo'),
 			'validate' => 'str_replace',
 			'str' => array('search' => ' ', 'replacement' => 'thisisaspace'),
-			'default' => '0'
+			'default' => 'This is the default.'
 			),
 		array(
 			'id'=>'preg_replace',
@@ -764,8 +907,7 @@ $sections[] = array(
 		)
 	);
 $sections[] = array(
-	'icon' => 'check',
-	'icon_class' => 'icon-large',
+	'icon' => 'el-icon-check',
 	'title' => __('Radio/Checkbox Fields', 'redux-framework-demo'),
 	'desc' => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework-demo'),
 	'fields' => array(
@@ -784,7 +926,7 @@ $sections[] = array(
 			'subtitle' => __('No validation can be done on this field type', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
 			'options' => array('1' => 'Opt 1','2' => 'Opt 2','3' => 'Opt 3'),//Must provide key => value pairs for multi checkbox options
-			'default' => array('1' => '1', '2' => '0', '3' => '0')//See how std has changed? you also dont need to specify opts that are 0.
+			'default' => array('1' => '1', '2' => '0', '3' => '0')//See how std has changed? you also don't need to specify opts that are 0.
 			),
 		array(
 			'id'=>'checkbox-data',
@@ -793,7 +935,15 @@ $sections[] = array(
 			'subtitle' => __('No validation can be done on this field type', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
 			'data' => "menu"
-			),					
+			),	
+		array(
+			'id'=>'checkbox-sidebar',
+			'type' => 'checkbox',
+			'title' => __('Multi Checkbox Option (with sidebar data)', 'redux-framework-demo'), 
+			'subtitle' => __('No validation can be done on this field type', 'redux-framework-demo'),
+			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
+			'data' => "sidebars"
+			),								
 		array(
 			'id'=>'12',
 			'type' => 'radio',
@@ -845,7 +995,7 @@ $sections[] = array(
             'id' => 'text_sortable',
 	        'type' => 'sortable',
     	    'title' => __('Sortable Text Option', 'redux-framework-demo'),
-        	'sub_desc' => __('Define and reorder these however you want.', 'redux-framework-demo'),
+        	'subtitle' => __('Define and reorder these however you want.', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
             'options' => array(
 	            'si1' => 'Item 1',
@@ -858,7 +1008,7 @@ $sections[] = array(
 	        'type' => 'sortable',
 	        'mode' => 'checkbox', // checkbox or text
     	    'title' => __('Sortable Text Option', 'redux-framework-demo'),
-        	'sub_desc' => __('Define and reorder these however you want.', 'redux-framework-demo'),
+        	'subtitle' => __('Define and reorder these however you want.', 'redux-framework-demo'),
 			'desc' => __('This is the description field, again good for additional info.', 'redux-framework-demo'),
             'options' => array(
 	            'si1' => 'Item 1',
@@ -869,8 +1019,7 @@ $sections[] = array(
 		)
 	);
 $sections[] = array(
-	'icon' => 'list-alt',
-	'icon_class' => 'icon-large',
+	'icon' => 'el-icon-list-alt',
 	'title' => __('Select Fields', 'redux-framework-demo'),
 	'desc' => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework-demo'),
 	'fields' => array(
@@ -1058,10 +1207,17 @@ if ( !empty( $tags ) ) {
 $theme_info .= '</div>';
 
 if(file_exists(dirname(__FILE__).'/README.md')){
-$tabs['theme_docs'] = array(
+$sections['theme_docs'] = array(
 			'icon' => ReduxFramework::$_url.'assets/img/glyphicons/glyphicons_071_book.png',
 			'title' => __('Documentation', 'redux-framework-demo'),
-			'content' => file_get_contents(dirname(__FILE__).'/README.md')
+			'fields' => array(
+				array(
+					'id'=>'17',
+					'type' => 'raw',
+					'content' => file_get_contents(dirname(__FILE__).'/README.md')
+					),				
+			),
+			
 			);
 }//if
 
@@ -1070,8 +1226,7 @@ $tabs['theme_docs'] = array(
 
 // You can append a new section at any time.
 $sections[] = array(
-	'icon' => 'eye-open',
-	'icon_class' => 'icon-large',
+	'icon' => 'el-icon-eye-open',
 	'title' => __('Additional Fields', 'redux-framework-demo'),
 	'desc' => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework-demo'),
 	'fields' => array(
@@ -1106,15 +1261,15 @@ $sections[] = array(
             'id'=>'info_warning',
             'type'=>'info',
             'style'=>'warning',
-            'header'=> __( 'This is a header.', 'redux-framework-demo' ),
+            'title'=> __( 'This is a title.', 'redux-framework-demo' ),
             'desc' => __( 'This is an info field with the warning style applied and a header.', 'redux-framework-demo')
         ),
         array(
             'id'=>'info_success',
             'type'=>'info',
             'style'=>'success',
-            'icon'=>'info-sign',
-            'header'=> __( 'This is a header.', 'redux-framework-demo' ),
+            'icon'=>'el-icon-info-sign',
+            'title'=> __( 'This is a title.', 'redux-framework-demo' ),
             'desc' => __( 'This is an info field with the success style applied, a header and an icon.', 'redux-framework-demo')
         ),
 		array(
@@ -1123,19 +1278,18 @@ $sections[] = array(
 			'required' => array('18','equals',array('1','2')),
 			'raw_html'=>true,
 			'desc' => $sampleHTML,
-			),							
+			),
 		array(
 			'id'=>"custom_callback",
-			//'type' => 'nothing',//doesnt need to be called for callback fields
+			'type' => 'callback',
 			'title' => __('Custom Field Callback', 'redux-framework-demo'), 
 			'subtitle' => __('This is a completely unique field type', 'redux-framework-demo'),
 			'desc' => __('This is created with a callback function, so anything goes in this field. Make sure to define the function though.', 'redux-framework-demo'),
 			'callback' => 'my_custom_field'
 			),
-		
 		array(
 			'id'=>"group",
-			'type' => 'group',//doesnt need to be called for callback fields
+			'type' => 'group',//doesn't need to be called for callback fields
 			'title' => __('Group', 'redux-framework-demo'), 
 			'subtitle' => __('Group any items together.', 'redux-framework-demo'),
 			'desc' => __('No limit as to what you can group. Just don\'t try to group a group.', 'redux-framework-demo'),
@@ -1169,18 +1323,29 @@ $sections[] = array(
 			
 		)
 
-	);    
+	);   
 
-$tabs['item_info'] = array(
-	'icon' => 'info-sign',
-	'icon_class' => 'icon-large',
-    'title' => __('Theme Information', 'redux-framework-demo'),
-    'content' => $item_info
+$sections[] = array(
+	'type' => 'divide',
 );
+
+$sections[] = array(
+	'icon' => 'el-icon-info-sign',
+	'title' => __('Theme Information', 'redux-framework-demo'),
+	'desc' => __('<p class="description">This is the Description. Again HTML is allowed</p>', 'redux-framework-demo'),
+	'fields' => array(
+		array(
+			'id'=>'raw_new_info',
+			'type' => 'raw',
+			'content' => $item_info,
+			)
+		),   
+	);
+
 
 if(file_exists(trailingslashit(dirname(__FILE__)) . 'README.html')) {
     $tabs['docs'] = array(
-		'icon' => 'book',
+		'icon' => 'el-icon-book',
 		'icon_class' => 'icon-large',
         'title' => __('Documentation', 'redux-framework-demo'),
         'content' => nl2br(file_get_contents(trailingslashit(dirname(__FILE__)) . 'README.html'))
@@ -1198,16 +1363,16 @@ $ReduxFramework = new ReduxFramework($sections, $args, $tabs);
  	Custom function for filtering the sections array. Good for child themes to override or add to the sections.
  	Simply include this function in the child themes functions.php file.
  
- 	NOTE: the defined constansts for URLs, and directories will NOT be available at this point in a child theme,
+ 	NOTE: the defined constants for URLs, and directories will NOT be available at this point in a child theme,
  	so you must use get_template_directory_uri() if you want to use any of the built in icons
  
  **/
 function add_another_section($sections){
     //$sections = array();
     $sections[] = array(
-        'title' => __('A Section added by hook', 'redux-framework-demo'),
+        'title' => __('Section via hook', 'redux-framework-demo'),
         'desc' => __('<p class="description">This is a section created by adding a filter to the sections array. Can be used by child themes to add/remove sections from the options.</p>', 'redux-framework-demo'),
-		'icon' => 'paper-clip',
+		'icon' => 'el-icon-paper-clip',
 		'icon_class' => 'icon-large',
         // Leave this as a blank section, no options just some intro text set above.
         'fields' => array()
@@ -1215,23 +1380,34 @@ function add_another_section($sections){
 
     return $sections;
 }
-add_filter('redux-opts-sections-redux-sample', 'add_another_section');
-
+add_filter('redux/options/redux_demo/sections', 'add_another_section');
+// replace redux_demo with your opt_name
 
 /**
 
-	Custom function for filtering the args array given by a theme, good for child themes to override or add to the args array.
+	Filter hook for filtering the args array given by a theme, good for child themes to override or add to the args array.
 
 **/
 function change_framework_args($args){
-    //$args['dev_mode'] = false;
+    //$args['dev_mode'] = true;
     
     return $args;
 }
-//add_filter('redux-opts-args-redux-sample-file', 'change_framework_args');
+add_filter('redux/options/redux_demo/args', 'change_framework_args');
+// replace redux_demo with your opt_name
 
+/**
 
+	Filter hook for filtering the default value of any given field. Very useful in development mode.
 
+**/
+function change_option_defaults($defaults){
+    $defaults['str_replace'] = "Testing filter hook!";
+    
+    return $defaults;
+}
+add_filter('redux/options/redux_demo/defaults', 'change_option_defaults');
+// replace redux_demo with your opt_name
 
 
 /** 
@@ -1243,6 +1419,7 @@ function my_custom_field($field, $value) {
     print_r($field);
     print_r($value);
 }
+
 
 /**
  
@@ -1257,7 +1434,7 @@ function validate_callback_function($field, $value, $existing_value) {
     
     if(something) {
         $value = $value;
-    } elseif(somthing else) {
+    } elseif(something else) {
         $error = true;
         $value = $existing_value;
         $field['msg'] = 'your custom error message';
@@ -1277,25 +1454,28 @@ function validate_callback_function($field, $value, $existing_value) {
 	It only runs if a field	set with compiler=>true is changed.
 
 **/
-function testCompiler() {
-	//echo "Compiler hook!";
+function testCompiler($options, $css) {
+	echo "<h1>The compiler hook has run!";
+	print_r($options); //Option values
+	print_r($css); //So you can compile the CSS within your own file to cache
 }
-add_action('redux-compiler-redux-sample-file', 'testCompiler');
-
+//add_filter('redux/options/redux_demo/compiler', 'testCompiler', 10, 2);
+// replace redux_demo with your opt_name
 
 
 /**
 
-	Use this code to hide the activation notice telling users about a sample panel.
+	Used to hide the activation notice informing users of the demo panel. Only used when Redux is a plugin.
 
 **/
 if ( class_exists('ReduxFrameworkPlugin') ) {
 	//remove_action('admin_notices', array( ReduxFrameworkPlugin::get_instance(), 'admin_notices' ) );	
 }
 
+
 /**
 
-	Use this code to hide the demo mode link from the plugin page. Only used when Redux is a plugin.
+	Used to hide the demo mode link from the plugin page. Only used when Redux is a plugin.
 
 **/
 function removeDemoModeLink() {

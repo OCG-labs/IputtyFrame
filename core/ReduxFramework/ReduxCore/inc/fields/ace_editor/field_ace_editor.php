@@ -1,5 +1,30 @@
 <?php
-class ReduxFramework_ace_editor {
+/**
+ * Redux Framework is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * any later version.
+ *
+ * Redux Framework is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Redux Framework. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package     Redux_Field
+ * @subpackage  ACE_Editor
+ * @version     3.0.0
+ */
+
+// Exit if accessed directly
+if( !defined( 'ABSPATH' ) ) exit;
+
+// Don't duplicate me!
+if( class_exists( 'ReduxFramework_ace_editor' ) ) return;
+
+class ReduxFramework_ace_editor extends ReduxFramework{ 
 
     /**
      * Field Constructor.
@@ -8,16 +33,13 @@ class ReduxFramework_ace_editor {
      *
      * @since ReduxFramework 1.0.0
     */
-    function __construct($field = array(), $value ='', $parent) {
+    function __construct( $field = array(), $value ='', $parent ) {
+    
+        parent::__construct( $parent->sections, $parent->args );
+        $this->parent = $parent;
         $this->field = $field;
-		$this->value = trim($value);
-		$this->args = $parent->args;
-        if( !isset($this->field['mode']) ){
-            $this->field['mode'] = 'javascript';
-        }
-        if( !isset($this->field['theme']) ){
-            $this->field['theme'] = 'monokai';
-        }
+        $this->value = trim($value);
+
     }
 
     /**
@@ -28,6 +50,13 @@ class ReduxFramework_ace_editor {
      * @since ReduxFramework 1.0.0
     */
     function render() {
+
+        if( !isset($this->field['mode']) ){
+            $this->field['mode'] = 'javascript';
+        }
+        if( !isset($this->field['theme']) ){
+            $this->field['theme'] = 'monokai';
+        }
 
         $name = $this->args['opt_name'] . '[' . $this->field['id'] . ']';
 
@@ -56,13 +85,6 @@ class ReduxFramework_ace_editor {
             wp_enqueue_style(
                 'redux-field-ace-editor-css', 
                 ReduxFramework::$_url . 'inc/fields/ace_editor/field_ace_editor.css',
-                time(),
-                true
-            );
-            wp_register_script(
-                'ace-editor',
-                ReduxFramework::$_url . 'inc/fields/ace_editor/ace-min-noconflict/ace.js',
-                array( 'jquery' ),
                 time(),
                 true
             );

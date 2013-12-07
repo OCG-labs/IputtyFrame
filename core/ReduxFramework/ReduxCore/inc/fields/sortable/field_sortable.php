@@ -1,5 +1,5 @@
 <?php
-class ReduxFramework_sortable {
+class ReduxFramework_sortable extends ReduxFramework {
 
     /**
      * Field Constructor.
@@ -8,10 +8,13 @@ class ReduxFramework_sortable {
      *
      * @since Redux_Options 2.0.1
     */
-    function __construct($field = array(), $value ='', $parent) {
+    function __construct( $field = array(), $value ='', $parent ) {
+    
+        parent::__construct( $parent->sections, $parent->args );
+        $this->parent = $parent;
         $this->field = $field;
-		$this->value = $value;
-		$this->args = $parent->args;
+        $this->value = $value;
+    
     }
 
     /**
@@ -23,13 +26,13 @@ class ReduxFramework_sortable {
     */
     function render() {
 
-    	if ( empty( $this->field['mode'] ) ) {
-    		$this->field['mode'] = "text";
-    	}
+        if ( empty( $this->field['mode'] ) ) {
+            $this->field['mode'] = "text";
+        }
 
-		if ( $this->field['mode'] != "checkbox" && $this->field['mode'] != "text"  ) {
-    		$this->field['mode'] = "text";
-    	}    	
+        if ( $this->field['mode'] != "checkbox" && $this->field['mode'] != "text"  ) {
+            $this->field['mode'] = "text";
+        }       
 
         $class = (isset($this->field['class'])) ? $this->field['class'] : '';
         $options = $this->field['options'];
@@ -48,17 +51,17 @@ class ReduxFramework_sortable {
             }
         }
 
-
         echo '<ul id="'.$this->field['id'].'-list" class="redux-sortable ' . $class . '">';
 
         foreach ($this->value as $k => $nicename) {
-            $value_display = isset($this->value[$k]) ? $this->value[$k] : '';
+            
             echo '<li>';
             
             $checked = "";
             $name = $this->args['opt_name'] . '[' . $this->field['id'] . '][' . $k . ']';
 
             if ( $this->field['mode'] == "checkbox") {
+            	$value_display = $this->field['options'][$k];
                 if (!empty($this->value[$k])) {
                     $checked = 'checked="checked" ';
                 }
@@ -66,16 +69,20 @@ class ReduxFramework_sortable {
 
                 echo '<input type="hidden" name="'.$name.'" id="'.$this->field['id'].'-'.$k.'-hidden" value="'.$value_display.'" />';
                 $name = "";
-            }
-            if ( $this->field['mode'] == "checkbox") {
                 echo '<div class="checkbox-container">';
+            } else {
+            	$value_display = isset($this->value[$k]) ? $this->value[$k] : '';
             }
             echo '<input rel="'.$this->field['id'].'-'.$k.'-hidden" class="' . $class . '" '.$checked.'type="'.$this->field['mode'].'" id="' . $this->field['id'] . '[' . $k . ']" name="'.$name.'" value="' . esc_attr($value_display) . '" placeholder="' . $nicename . '" />';
-            if ( $this->field['mode'] == "checkbox") {
+
+            echo '<span class="compact drag"><i class="el-icon-move icon-large"></i></span>';
+            if ( $this->field['mode'] == "checkbox" || (isset( $this->field['label'] ) && $this->field['label'] == true ) ) {
+                if ( $this->field['mode'] != "checkbox" ) {
+                    echo "<br />";
+                }
                 echo '<label for="' . $this->field['id'] . '[' . $k . ']"><strong>' . $options[$k] . '</strong></label>';
 
             }
-            echo '<span class="compact drag"><i class="icon-move icon-large"></i></span>';
             if ( $this->field['mode'] == "checkbox") {
                 echo '</div>';
             }
@@ -87,21 +94,12 @@ class ReduxFramework_sortable {
 
     function enqueue() {
 
-        wp_enqueue_script(
-            'redux-field-sortable-js',
-            ReduxFramework::$_url . 'inc/fields/sortable/field_sortable.min.js',
-            array('jquery'),
+        wp_enqueue_style(
+            'redux-field-sortable-css', 
+            ReduxFramework::$_url.'inc/fields/sortable/field_sortable.css', 
             time(),
             true
-        );
-
-
-		wp_enqueue_style(
-			'redux-field-sortable-css', 
-			ReduxFramework::$_url.'inc/fields/sortable/field_sortable.css', 
-			time(),
-			true
-		);	
+        );  
 
     }
 }

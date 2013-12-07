@@ -1,10 +1,10 @@
 === Redux Framework ===
-Contributors: ghost1227, dovyp
+Contributors: nohalfpixels, ghost1227, dovyp
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=N5AD7TSH8YA5U
 Tags: admin, admin interface, options, theme options, plugin options, options framework, settings
 Requires at least: 3.5.1
 Tested up to: 3.7
-Stable tag: 3.0.8
+Stable tag: 3.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -88,8 +88,8 @@ Special thanks to the following people for language translations:
 
 * German [de_DE] @Abu-Taymiyyah
 * Bahasa Indonesia [id_ID] @riesurya
-* Tirnovanuaurel [IT_it] [RO_ro] @tirnovanuaurel
-
+* Italian, Romanian [IT_it] [RO_ro] @tirnovanuaurel
+* Spanish [es_ES] [RO_ro] @vertigo7x
 
 = Get Involved =
 Redux is an ever-changing, living system. Want to stay up to date or
@@ -138,6 +138,57 @@ That's because the real FAQ section is on our site! Please visit [http://reduxfr
 1. This is the demo mode of Redux Framework. Activate it and you will find a fully-functional admin panel that you can play with. On the Plugins page, beneath the description and an activated Redux Framework, you will find a Demo Mode link. Click that link to activate or deactivate the sample-config file Redux ships with.  Don't take our word for it, check out our online demo and try Redux without installing a thing! [**http://demo.reduxframework.com/wp-admin/**](http://demo.reduxframework.com/wp-admin/)
 
 == Changelog ==
+
+= 3.1.0 =
+* Fix Issue 224 - Image Select width was breaking the panel.
+* Fix Issue 181 - Broken panel in firefox
+* Fix Issue 225 - 0px typography bug. Thanks @partnuz.
+* Fix Issue 228 - Resolved a duplicated enqueue on color_link field. Thanks @vertigo7x.
+* Fix Issue 231 - Field spacing bug fixes.
+* Fix Issue 232 & 233 - Dimensions: bug fix with units and multiple units. Thanks @kpodemski
+* Fix Issue 234 - Pass options as a ref so validating actions can modify/sanitize them. Thanks @ZeroBeeOne
+* Fix Issue 222 - Tab cookie function wasn't working.
+* Feature - Pass params to Select2. Thanks @andreilupu
+* Fix Issue 238 - Fix for conditional output. Thanks @partnuz.
+* Fix Issue 211 - Google Web font wasn't loading at first init of theme.
+* Fix Issue 210 - Elusive Icons update. Changed classes to force use of full elusive name.
+* Fix Issue 247 - Media thumbnails were not showing. Also fixed media to keep the largest file, but display the small version in the panel as a thumb. Thanks @kwayyinfotech.
+* Fix Issue 144 - JS error when no item found in slider.
+* Fix Issue 246 - Typography output errors.
+* Feature & Issue 259 - Multi-Text now support validation!
+* Fix Issue 248/261 - Links color issue. Also fixed color validation.
+* Feature & Issue 262 - Now registered sidebars can be used as a data type.
+* Fix Issue 194/276 - Custom taxonomy terms now passing properly. Thanks @kprovance.
+* Feature & Issue 273 - Argument save_defaults: Disable the auto-save of the default options to the database if not set.
+* Feature - Docs now being moved to the wiki for community participation.
+* Issue 283 - Date placeholder. Thanks @kprovance.
+* Issue 285 - HTTPS errors on admin. Known WordPress bug. Resolved.
+* Fix Issue 288 - Float values now possible for border, dimensions, and spacing.
+* Feature - Media field can now accept non-image files with a argument being set.
+* Fix Issue 252 - Post Type data wasn't working properly. Thanks @Abu-Taymiyyah.
+* Fix Issue 213 - Radio and Button Set wasn't folding.
+
+= 3.0.9 =
+* Feature - Added possibility to set default icon class for all sections and tabs.
+* Feature - Make is to the WP dir can be moved elsewhere and Redux still function.
+* Added Spanish Language. Thanks @vertigo7x.
+* Fix Issue 5 - Small RGBA validation fix.
+* Fix Issue 176 - Fold by Image Select. Thanks @andreilupu.
+* Fix Issue 194 - Custom taxonomy terms in select field.
+* Fix Issue 195 - Border defaults not working.
+* Fix Issue 197 - Hidden elements were showing up on a small screen. Thanks @ThinkUpThemes.
+* Fix issue 200 - Compiler not working with media field.
+* Fix Issue 201 - Spacing field not using default values.
+* Fix Issue 202 - Dimensions field not using units.
+* Fix Issue 208 - Checkbox + Required issue.
+* Fix Issue 211 - Google Font default not working on page load.
+* Fix Issue 214 - Validation notice not working for fields.
+* Fix Issue 181/224 - Firefox 24 image resize errors.
+* Fix Issue 223 - Slides were losing the url input field for the image link.
+* Fix - Various issues in the password field.
+* Fixed various spelling issues and typos in sample-config file.
+* Initialize vars before extract() - to shut down undefined vars wargnings.
+* Various other fixes.
 
 = 3.0.8 =
 * Version push to ensure all bugs fixes were deployed to users. Various.
