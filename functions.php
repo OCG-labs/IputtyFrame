@@ -12,16 +12,17 @@ if ( !isset( $redux_demo ) && file_exists( dirname( __FILE__ ) . '/core/theme-op
 }
 
 if(!is_admin()) {
-	require_once('core/addons/actions.php');
-	require_once('core/bootstrap/php/bootstrap.php'); 
-	require_once('core/bootstrap/php/wp_bootstrap_navwalker.php');
-	require_once('core/font-awesome/font-awesome.php');
-	require_once('core/addons/ga.php');
+	require_once(dirname( __FILE__ ).'core/addons/actions.php');
+	require_once(dirname( __FILE__ ).'core/bootstrap/php/bootstrap.php'); 
+	require_once(dirname( __FILE__ ).'core/bootstrap/php/wp_bootstrap_navwalker.php');
+	require_once(dirname( __FILE__ ).'core/font-awesome/font-awesome.php');
+	require_once(dirname( __FILE__ ).'core/addons/ga.php');
 }
 
 
-require_once('core/addons/shortcodes.php');
-require_once('core/addons/mailchimp.php');
+require_once(dirname( __FILE__ ).'core/addons/shortcodes.php');
+require_once(dirname( __FILE__ ).'core/addons/mailchimp.php');
+require_once(dirname( __FILE__ ).'core/addons/tgm-plugin-activation/tgm-modual.php');
 
 
 
