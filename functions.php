@@ -23,7 +23,7 @@ if(!is_admin()) {
 
 require_once( dirname( __FILE__ ) . '/core/addons/shortcodes.php' );
 require_once( dirname( __FILE__ ) . '/core/addons/mailchimp.php' );
-require_once( dirname( __FILE__ ) . '/core/addons/tgm-plugin-activation/tgm-modual.php' );
+require_once( dirname( __FILE__ ) . '/core/tgm-plugin-activation/tgm-modual.php' );
 
 add_theme_support( 'post-thumbnails' );
 
