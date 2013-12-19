@@ -25,7 +25,7 @@ $terms = get_terms($tax); ?>
 ?>
 
 <section id="main_content">
-  <div class="container">
+  <div id="isotope" class="container">
 
 <!-- BEGIN: Filter Sections --> 
     <div class="row rw isotope-filtera-row">
