@@ -12,24 +12,3 @@ function load_fancybox_css() {
 }
 add_action( 'wp_enqueue_scripts', 'load_fancybox_css', 1 );
 
-function fancybox_externallink_script() {
-?>
-<script type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery(".various").fancybox({
-			maxWidth	: 800,
-			maxHeight	: 600,
-			fitToView	: false,
-			width		: '70%',
-			height		: '70%',
-			autoSize	: false,
-			closeClick	: false,
-			openEffect	: 'none',
-			closeEffect	: 'none'
-		});
-	});
-</script>
-<?php 
-}
-
-add_action('wp_head', 'fancybox_externallink_script', 22);
